@@ -19,7 +19,7 @@
     - "composer install -vvv"
     setup_commands:
       - "# Do not set a PHP Memory Limit"
-      - "echo "memory_limit=-1" >> /usr/local/etc/php/conf.d/buddy.ini"
+      - "echo 'memory_limit=-1' >> /usr/local/etc/php/conf.d/buddy.ini"
       - ""
       - "# Install Packages from Apt"
       - "apt-get update && apt-get install -y git zip libfreetype6-dev libjpeg62-turbo-dev libpng-dev unzip zlib1g-dev"
