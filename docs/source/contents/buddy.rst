@@ -40,6 +40,9 @@ described below.
 Because they are used in tandem, you **CANNOT** simply import one yml without the other.  If you do this, you'll need to
 tie them together in the end.  That is also described below.
 
+Current versions of the yamls are kept in a `private repository <https://github.com/utkdigitalinitiatives/utlibraries_deployment>`_.
+Sanitized versions of the pipelines are also stored here for documentation sake.
+
 #########################################
 2022 Build, Test and Deploy Master Branch
 #########################################
@@ -57,4 +60,93 @@ To do this, we use the :code:`php` docker image from docker hub that is tagged w
     :language: yaml
     :lines: 11-15
     :emphasize-lines: 4-5
+
+Using this image, we build and run a container that:
+
+1. Turns off the memory limit for PHP
+2. Installs required Debian packages for PHP and composer
+3. Downloads and installs compose
+4. Configures and executes PHP extensions
+
+These steps are reflected in the corresponding yaml:
+
+.. literalinclude:: ../sanitized_files/2022BuildTestandDeployMasterBranch.yml
+    :language: yaml
+    :lines: 20-39
+
+Once the container is built, composer is run inside of the utk-libraries git repository in the working directory:
+
+.. literalinclude:: ../sanitized_files/2022BuildTestandDeployMasterBranch.yml
+    :language: yaml
+    :lines: 11-19
+    :emphasize-lines: 3, 6-9
+
+---------------------------------------
+Step 2: Build React Apps & Sage 9 theme
+---------------------------------------
+
+Next, we build out the React components of the website. To do this, we use the :code:`node` docker image from docker hub
+that is tagged with the :code:`10` tag.
+
+.. literalinclude:: ../sanitized_files/2022BuildTestandDeployMasterBranch.yml
+    :language: yaml
+    :lines: 43-47
+    :emphasize-lines: 4-5
+
+We then setup the environment by installing gulp and grunt-cli.
+
+.. literalinclude:: ../sanitized_files/2022BuildTestandDeployMasterBranch.yml
+    :language: yaml
+    :lines: 65-66
+
+Finally, we build out the individual react applications and ultimately our theme based on sage:
+
+.. literalinclude:: ../sanitized_files/2022BuildTestandDeployMasterBranch.yml
+    :language: yaml
+    :lines: 48-64
+
+Our action also defines the react path as a variable:
+
+.. literalinclude:: ../sanitized_files/2022BuildTestandDeployMasterBranch.yml
+    :language: yaml
+    :lines: 70-73
+    :emphasize-lines: 3
+
+---------------------------
+Step 3: Set Release Version
+---------------------------
+
+Next, we build a container to build our release. To do this, we use the :code:`ubuntu` docker image from docker hub with
+the :code:`18.04` tag.
+
+.. literalinclude:: ../sanitized_files/2022BuildTestandDeployMasterBranch.yml
+    :language: yaml
+    :lines: 76-80
+    :emphasize-lines: 4-5
+
+We then install git in this new container.
+
+.. literalinclude:: ../sanitized_files/2022BuildTestandDeployMasterBranch.yml
+    :language: yaml
+    :lines: 90-91
+
+And ultimately tag our new release by taking our global variables used for semantic versioning and adding a 1 to the
+patch number:
+
+.. literalinclude:: ../sanitized_files/2022BuildTestandDeployMasterBranch.yml
+    :language: yaml
+    :lines: 81-89
+    :emphasize-lines: 3
+
+Like previous steps, all of this runs against our working directory that holds a copy of our github repository with the
+code base:
+
+.. literalinclude:: ../sanitized_files/2022BuildTestandDeployMasterBranch.yml
+    :language: yaml
+    :lines: 76-80
+    :emphasize-lines: 3
+
+------------------------------
+Step 4: Push Release to Github
+------------------------------
 
