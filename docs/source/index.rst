@@ -1,20 +1,17 @@
-.. UT Libraries' WordPress Deployment Docs documentation master file, created by
-   sphinx-quickstart on Fri Jan 21 13:10:44 2022.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+UT Libraries' WordPress Deployment Documentation
+================================================
 
-Welcome to UT Libraries' WordPress Deployment Docs's documentation!
-===================================================================
+This portal describes how WordPress deployment currently works at UT Libraries.
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+   :maxdepth: 1
+   :glob:
+
+   contents/*
 
 
 
-Indices and tables
-==================
+Search
+------
 
-* :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
