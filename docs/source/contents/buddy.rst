@@ -296,8 +296,18 @@ Now we can start to better understand what is happening here. In this step, we a
 2. Committing all files that have been created or modified by previous actions (Including those files that were originally ignored)
 3. Force pushing the output to the :code:`sandbox` branch on Pantheon
 
-**NOTE**: Unlike the previous step, `Mark <https://github.com/markpbaggett>`_ could not figure out the rationale for
-this existing.  It is recommended that we explore the Pantheon repository more closely to understand what is happening.
+=========
+Rationale
+=========
+
+If you're reading this, you may be wondering: **why do we push a master and sandbox branch to Pantheon?**
+
+The :code:`master` branch described in step 7 is the primary dev environment.  It has its own database and is what we
+normally look at when we are testing.  If we pull the database from test to dev, it updates this.
+
+The :code:`sandbox` branch described here exists because some stakeholders wanted a "development" area to try new things
+and we needed a way to insure that this wasn't overwritten when the database was updated. As far as `Mark <https://github.com/markpbaggett>`_
+knows, this was only ever used by Teaching and Learning.
 
 -------------------------------
 Step 9: Push to Github Upstream
